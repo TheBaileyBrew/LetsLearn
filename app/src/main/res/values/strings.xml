@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Lets Learn</string>
+    <string name="title_menu1">Race</string>
+    <string name="title_menu2">Levels</string>
+    <string name="title_menu3">Home</string>
+    <string name="title_menu4">Patterns</string>
+    <string name="title_menu5">Scores</string>
 </resources>

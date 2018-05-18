@@ -1,88 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/container"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
-    <View
-        android:id="@+id/vertical_break"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floating_action_button"
         android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:layout_margin="8dp"
-        android:layout_centerVertical="true"
-        android:background="@color/colorAccent"/>
-
-    <View
-        android:id="@+id/horizontal_break"
-        android:layout_width="1dp"
-        android:layout_margin="8dp"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:background="@color/colorAccent"/>
+        android:layout_marginBottom="75dp"
+        android:layout_marginRight="55dp"
+        app:layout_anchor="@id/bottomNavigation"
+        app:layout_anchorGravity="right|bottom"
+        android:visibility="gone"
+        app:useCompatPadding="true"/>
 
-    <Button
-        android:id="@+id/beat_the_clock"
-        style="@style/Base.Widget.AppCompat.Button.Borderless"
+    <it.sephiroth.android.library.bottomnavigation.BottomNavigation
+        android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_toLeftOf="@id/horizontal_break"
-        android:layout_above="@id/vertical_break"
-        android:text="Beat The Clock"/>
-    <Button
-        android:id="@+id/add_or_subtract"
-        style="@style/Base.Widget.AppCompat.Button.Borderless"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_toRightOf="@id/horizontal_break"
-        android:layout_above="@id/vertical_break"
-        android:text="Add or subtract"/>
-
-    <Button
-        android:id="@+id/pattern_recognition"
-        style="@style/Base.Widget.AppCompat.Button.Borderless"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="8dp"
-        android:layout_marginBottom="8dp"
-        android:layout_toLeftOf="@id/horizontal_break"
-        android:layout_below="@id/vertical_break"
-        android:text="Pattern Recognition"/>
-
-    <Button
-        android:id="@+id/scores"
-        style="@style/Base.Widget.AppCompat.Button.Borderless"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_toRightOf="@id/horizontal_break"
-        android:layout_below="@id/vertical_break"
-        android:text="View Your Scores"/>
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:bbn_entries="@menu/navigation"
+        app:bbn_itemColorInactive="@color/colorPrimaryDark"
+        app:bbn_scrollEnabled="false"
+        app:layout_behavior="@string/bbn_phone_view_behavior"/>
 
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <!-- Build the horizontal layout for options-->
-        <!-- ADDITION -->
-        <!-- SUBTRACTION -->
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <!-- Build the horizontal layout for options-->
-        <!-- MULTIPLICATION -->
-        <!-- PATTERN RECOGNITION -->
-    </LinearLayout>
-
-
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

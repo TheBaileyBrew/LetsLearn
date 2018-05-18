@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/view_vertical_break"
+        android:layout_margin="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorAccent"
+        android:layout_centerVertical="true"/>
+
+    <View
+        android:id="@+id/view_horizontal_break"
+        android:layout_margin="8dp"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/colorAccent"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/race_the_clock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="8dp"
+        android:layout_toStartOf="@id/view_horizontal_break"
+        android:layout_alignParentTop="true"
+        android:textStyle="bold"
+        android:text="RACE THE CLOCK"/>
+
+    <ImageView
+        android:id="@+id/race_icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleX="2"
+        android:scaleY="2"
+        android:src="@drawable/ic_timer_black_24dp"
+        android:gravity="center_horizontal"
+        android:layout_below="@id/race_the_clock"
+        android:layout_marginTop="16dp"
+        android:layout_alignRight="@id/race_the_clock"
+        android:layout_alignLeft="@id/race_the_clock"/>
+
+    <TextView
+        android:id="@+id/race_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_below="@id/race_icon"
+        android:layout_marginTop="8dp"
+        android:layout_alignLeft="@id/race_icon"
+        android:layout_alignRight="@id/race_icon"
+        android:text="Test your skills and try to beat the clock in this timed math challenge. Questions will fill your screen until the time runs out."/>
+
+    <TextView
+        android:id="@+id/level_challenge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_toEndOf="@id/view_horizontal_break"
+        android:layout_alignParentTop="true"
+        android:textStyle="bold"
+        android:text="LEVEL CHALLENGE"/>
+
+    <ImageView
+        android:id="@+id/levels_icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleX="2"
+        android:scaleY="2"
+        android:src="@drawable/ic_climb_black_24dp"
+        android:gravity="center_horizontal"
+        android:layout_below="@id/level_challenge"
+        android:layout_marginTop="16dp"
+        android:layout_alignRight="@id/level_challenge"
+        android:layout_alignLeft="@id/level_challenge"/>
+
+    <TextView
+        android:id="@+id/levels_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_below="@id/levels_icon"
+        android:layout_marginTop="8dp"
+        android:layout_alignLeft="@id/levels_icon"
+        android:layout_alignRight="@id/levels_icon"
+        android:text="Choose your difficulty and try to answer the math questions as they get harder and harder. How high can you get?"/>
+
+
+    <TextView
+        android:id="@+id/pattern_recognition"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_toStartOf="@id/view_horizontal_break"
+        android:layout_below="@id/view_vertical_break"
+        android:textStyle="bold"
+        android:text="SEE THE PATTERN"/>
+
+    <ImageView
+        android:id="@+id/pattern_icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleX="2"
+        android:scaleY="2"
+        android:src="@drawable/ic_pattern_black_24dp"
+        android:gravity="center_horizontal"
+        android:layout_below="@id/pattern_recognition"
+        android:layout_marginTop="16dp"
+        android:layout_alignRight="@id/pattern_recognition"
+        android:layout_alignLeft="@id/pattern_recognition"/>
+
+    <TextView
+        android:id="@+id/pattern_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_below="@id/pattern_icon"
+        android:layout_marginTop="8dp"
+        android:layout_alignLeft="@id/pattern_icon"
+        android:layout_alignRight="@id/pattern_icon"
+        android:text="Looking for a break from the math questions? Try to guess the next number in the sequence. Tapping the ? will give you a hint for each pattern displayed."/>
+
+
+    <TextView
+        android:id="@+id/see_your_scores"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_toEndOf="@id/view_horizontal_break"
+        android:layout_below="@id/view_vertical_break"
+        android:textStyle="bold"
+        android:text="YOUR SCORES"/>
+
+    <ImageView
+        android:id="@+id/scores_icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleX="2"
+        android:scaleY="2"
+        android:src="@drawable/ic_grade_black_24dp"
+        android:gravity="center_horizontal"
+        android:layout_below="@id/see_your_scores"
+        android:layout_marginTop="16dp"
+        android:layout_alignRight="@id/see_your_scores"
+        android:layout_alignLeft="@id/see_your_scores"/>
+
+    <TextView
+        android:id="@+id/scores_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_below="@id/scores_icon"
+        android:layout_marginTop="8dp"
+        android:layout_alignLeft="@id/see_your_scores"
+        android:layout_alignRight="@id/see_your_scores"
+        android:text="See how you're doing on your quizzes. Parents: track your childs progress on the various concepts: addition, subtraction, single / double digits, patterns, etc.."/>
+
+
+
+
+</RelativeLayout>

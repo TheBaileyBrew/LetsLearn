@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#22ffffff"
+    app:bbn_itemColorActive="@color/colorPrimary"
+    app:bbn_itemColorInactive="@color/colorPrimaryDark">
+
+    <item
+        android:id="@+id/navigation_race"
+        android:background="@color/colorPrimaryDark"
+        android:icon="@drawable/ic_timer_black_24dp"
+        android:title="@string/title_menu1" />
+    <item
+        android:id="@+id/navigation_levels"
+        android:background="@color/colorPrimaryDark"
+        android:icon="@drawable/ic_climb_black_24dp"
+        android:title="@string/title_menu2" />
+
+    <item
+        android:id="@+id/navigation_home"
+        android:background="@color/colorPrimaryDark"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/title_menu3" />
+
+    <item
+        android:id="@+id/navigation_patterns"
+        android:background="@color/colorPrimaryDark"
+        android:icon="@drawable/ic_pattern_black_24dp"
+        android:title="@string/title_menu4" />
+
+    <item
+        android:id="@+id/navigation_scores"
+        android:background="@color/colorPrimaryDark"
+        android:icon="@drawable/ic_grade_black_24dp"
+        android:title="@string/title_menu5" />
+
+</menu>
