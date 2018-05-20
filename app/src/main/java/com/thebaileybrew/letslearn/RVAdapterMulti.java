@@ -14,6 +14,8 @@ import java.util.List;
 
 public class RVAdapterMulti extends RecyclerView.Adapter<RVAdapterMulti.MathMultiFunction> {
 
+    private RadioButton lastCheckedRB = null;
+
     public static class MathMultiFunction extends RecyclerView.ViewHolder {
         CardView cvMulti;
         TextView firstDigitView;
@@ -41,7 +43,7 @@ public class RVAdapterMulti extends RecyclerView.Adapter<RVAdapterMulti.MathMult
 
     private List<multiquestion> QuestionsMulti;
 
-    RVAdapterMulti(List<multiquestion> Questions) {this.QuestionsMulti = QuestionsMulti;}
+    RVAdapterMulti(List<multiquestion> QuestionsMulti) {this.QuestionsMulti = QuestionsMulti;}
 
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
@@ -50,17 +52,38 @@ public class RVAdapterMulti extends RecyclerView.Adapter<RVAdapterMulti.MathMult
 
     @Override
     public MathMultiFunction onCreateViewHolder (ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycler_item,viewGroup,false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycler_item_multi,viewGroup,false);
         MathMultiFunction mmf = new MathMultiFunction(v);
         return mmf;
     }
 
     @Override
     public void onBindViewHolder(MathMultiFunction mmf, int i) {
-        mmf.firstDigitView.setText(QuestionsMulti.get(i).firstDigit);
-        mmf.secondDigitView.setText(QuestionsMulti.get(i).secondDigit);
-        mmf.mathFunctionView.setText(QuestionsMulti.get(i).mathFunction);
-        mmf.radioBone.setText(QuestionsMulti.get(i).correctAnswer);
+        mmf.firstDigitView.setText(QuestionsMulti.get(i).firstNumber);
+        mmf.secondDigitView.setText(QuestionsMulti.get(i).secondNumber);
+        mmf.mathFunctionView.setText(QuestionsMulti.get(i).mathFunc);
+        mmf.multiRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                // Change logic here to validate correct answers.
+                // If checked ID.getText = correctAnswer
+                // Then change highlight color to green
+                // If checked ID.getText = inCorrectAnswer
+                // Then chenge highlight color to red
+                // For all instances make remaining radiobuttons uncheckable.
+
+
+                RadioButton checked_rb = (RadioButton) group.findViewById(checkedId);
+                if (lastCheckedRB != null) {
+                    lastCheckedRB.setChecked(false);
+                }
+                //store the clicked radiobutton
+                lastCheckedRB = checked_rb;
+
+            }
+        });
+        mmf.radioBone.setText(QuestionsMulti.get(i).correct);
         mmf.radioBtwo.setText(QuestionsMulti.get(i).incorrectOne);
         mmf.radioBthree.setText(QuestionsMulti.get(i).incorrectTwo);
         mmf.radioBfour.setText(QuestionsMulti.get(i).incorrectThree);

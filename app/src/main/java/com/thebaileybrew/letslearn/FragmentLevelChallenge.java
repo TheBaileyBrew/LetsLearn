@@ -7,12 +7,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class FragmentLevelChallenge extends Fragment {
+public class FragmentLevelChallenge extends Fragment{
 
     public static final String TAG = "LevelChallengeFragment";
 
@@ -22,10 +26,12 @@ public class FragmentLevelChallenge extends Fragment {
 
     int firstDig;
     int secondDig;
+    int correctAnswer;
     int incorrectOne;
     int incorrectTwo;
     int incorrectThree;
     int thisPosition;
+    RadioGroup radioGroupRecycler;
 
 
 
@@ -58,47 +64,86 @@ public class FragmentLevelChallenge extends Fragment {
     private void createQuestionBatch() {
         //Creates the random integers for math functions
         int level = 10;
-        Random r = new Random();
-        Random incorrect = new Random();
-        Random position = new Random();
+        for (int i = 0; i < level; i++) {
+            Random r = new Random();
+            Random incorrect = new Random();
+            Random position = new Random();
 
-        firstDig = r.nextInt(10-1) + 1;
-        secondDig = r.nextInt(10-1) + 1;
-        incorrectOne = incorrect.nextInt(10-1) + 1;
-        incorrectTwo = incorrect.nextInt(10-1) + 1;
-        incorrectThree = incorrect.nextInt(10-1) + 1;
-        thisPosition = position.nextInt(4-1) + 1;
-        //Convert integer to string values
-        String firstNumber = String.valueOf(firstDig);
-        String secondNumber = String.valueOf(secondDig);
-        String firstIncorrect = String.valueOf(incorrectOne);
-        String secondIncorrect = String.valueOf(incorrectTwo);
-        String thirdIncorrect = String.valueOf(incorrectThree);
-        if (firstDig < secondDig) {
-            String correct = String.valueOf(secondDig-firstDig);
-            //Checks if 1st integer is less than 2ns integer
-            switch (thisPosition) {
-                case 1: //A
-                    QuestionsMulti.add(new multiquestion(secondNumber, firstNumber, correct,"-", firstIncorrect, secondIncorrect, thirdIncorrect));
-                    break;
-                case 2: //C
-                    QuestionsMulti.add(new multiquestion(secondNumber, firstNumber, firstIncorrect,"-", correct, secondIncorrect, thirdIncorrect));
-                    break;
-                case 3: //D
-                    QuestionsMulti.add(new multiquestion(secondNumber, firstNumber, thirdIncorrect,"-", firstIncorrect, secondIncorrect, correct));
-                    break;
-                case 4: //B
-                    QuestionsMulti.add(new multiquestion(secondNumber, firstNumber, secondIncorrect,"-", correct, firstIncorrect, thirdIncorrect));
-                    break;
-
-                    //Need remaining logic and organization 
+            firstDig = r.nextInt(10 - 1) + 1;
+            secondDig = r.nextInt(10 - 1) + 1;
+            incorrectOne = incorrect.nextInt(10 - 1) + 1;
+            incorrectTwo = incorrect.nextInt(10 - 1) + 1;
+            incorrectThree = incorrect.nextInt(10 - 1) + 1;
+            thisPosition = position.nextInt(4 - 1) + 1;
+            //Convert integer to string values
+            String firstNumber = String.valueOf(firstDig);
+            String secondNumber = String.valueOf(secondDig);
+            String firstIncorrect = String.valueOf(incorrectOne);
+            String secondIncorrect = String.valueOf(incorrectTwo);
+            String thirdIncorrect = String.valueOf(incorrectThree);
+            if (firstDig < secondDig) {
+                correctAnswer = secondDig - firstDig;
+                String correct = String.valueOf(correctAnswer);
+                //Checks if 1st integer is less than 2nd integer
+                switch (thisPosition) {
+                    case 1: //A
+                        QuestionsMulti.add(new multiquestion(secondNumber, firstNumber, correct, "-", firstIncorrect, secondIncorrect, thirdIncorrect));
+                        break;
+                    case 2: //C
+                        QuestionsMulti.add(new multiquestion(secondNumber, firstNumber, firstIncorrect, "-", thirdIncorrect, correct, secondIncorrect));
+                        break;
+                    case 3: //D
+                        QuestionsMulti.add(new multiquestion(secondNumber, firstNumber, thirdIncorrect, "-", firstIncorrect, secondIncorrect, correct));
+                        break;
+                    case 4: //B
+                        QuestionsMulti.add(new multiquestion(secondNumber, firstNumber, secondIncorrect, "-", correct, thirdIncorrect, firstIncorrect));
+                        break;
+                }
+            } else if (firstDig > secondDig) {
+                correctAnswer = firstDig + secondDig;
+                String correct = String.valueOf(correctAnswer);
+                //Checks if 1st integer is greater than 2nd integer
+                switch (thisPosition) {
+                    case 1: //A
+                        QuestionsMulti.add(new multiquestion(secondNumber, firstNumber, correct, "+", firstIncorrect, secondIncorrect, thirdIncorrect));
+                        break;
+                    case 2: //C
+                        QuestionsMulti.add(new multiquestion(secondNumber, firstNumber, firstIncorrect, "+", thirdIncorrect, correct, secondIncorrect));
+                        break;
+                    case 3: //D
+                        QuestionsMulti.add(new multiquestion(secondNumber, firstNumber, thirdIncorrect, "+", firstIncorrect, secondIncorrect, correct));
+                        break;
+                    case 4: //B
+                        QuestionsMulti.add(new multiquestion(secondNumber, firstNumber, secondIncorrect, "+", correct, firstIncorrect, thirdIncorrect));
+                        break;
+                }
+            } else {
+                correctAnswer = firstDig + secondDig;
+                String correct = String.valueOf(correctAnswer);
+                //Checks if 1st integer is greater than 2nd integer
+                switch (thisPosition) {
+                    case 1: //A
+                        QuestionsMulti.add(new multiquestion(secondNumber, firstNumber, correct, "+", firstIncorrect, secondIncorrect, thirdIncorrect));
+                        break;
+                    case 2: //C
+                        QuestionsMulti.add(new multiquestion(secondNumber, firstNumber, firstIncorrect, "+", thirdIncorrect, correct, secondIncorrect));
+                        break;
+                    case 3: //D
+                        QuestionsMulti.add(new multiquestion(secondNumber, firstNumber, thirdIncorrect, "+", firstIncorrect, secondIncorrect, correct));
+                        break;
+                    case 4: //B
+                        QuestionsMulti.add(new multiquestion(secondNumber, firstNumber, secondIncorrect, "+", correct, firstIncorrect, thirdIncorrect));
+                        break;
+                }
             }
-        }
+            adapterMulti.notifyDataSetChanged();
 
+        }
     }
 
     private void initializeRecyclerAdapter() {
         adapterMulti = new RVAdapterMulti(QuestionsMulti);
         recyclerView.setAdapter(adapterMulti);
     }
+
 }

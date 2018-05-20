@@ -3,18 +3,19 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/level_challenge"
+        android:layout_marginTop="32dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="LEVEL CHALLENGE"/>
-
+        android:layout_centerHorizontal="true"
+        android:textSize="56sp"
+        android:text="LEVELS"/>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_display_multi"
-        android:layout_below="@id/stopwatch_display"
+        android:layout_below="@id/level_challenge"
         android:layout_marginRight="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginBottom="50dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
+        android:layout_height="wrap_content"/>
 </RelativeLayout>
