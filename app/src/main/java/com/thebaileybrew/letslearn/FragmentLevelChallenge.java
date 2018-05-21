@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -31,6 +32,12 @@ public class FragmentLevelChallenge extends Fragment{
     int incorrectTwo;
     int incorrectThree;
     int thisPosition;
+
+    //levelChallenge defines the current challenge level
+    int levelChallenge = 1;
+    int maxBound;
+    int minBound;
+    int adjustBound;
     RadioGroup radioGroupRecycler;
 
 
@@ -54,6 +61,7 @@ public class FragmentLevelChallenge extends Fragment{
         recyclerView = view.findViewById(R.id.recycler_view_display_multi);
         LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(layoutManager);
+        radioGroupRecycler = recyclerView.findViewById(R.id.radio_group_multi);
 
         initializeRecyclerAdapter();
         createQuestionBatch();
@@ -62,28 +70,79 @@ public class FragmentLevelChallenge extends Fragment{
     }
 
     private void createQuestionBatch() {
-        //Creates the random integers for math functions
-        int level = 10;
-        for (int i = 0; i < level; i++) {
-            Random r = new Random();
-            Random incorrect = new Random();
-            Random position = new Random();
+        //Integer values to define the minimum, maximum and adjustment for random integers
 
-            firstDig = r.nextInt(10 - 1) + 1;
-            secondDig = r.nextInt(10 - 1) + 1;
-            incorrectOne = incorrect.nextInt(10 - 1) + 1;
-            incorrectTwo = incorrect.nextInt(10 - 1) + 1;
-            incorrectThree = incorrect.nextInt(10 - 1) + 1;
+
+        //Checks the current level to determine the boundaries for difficulty of random integers
+        switch (levelChallenge) {
+            case 1: //If level 1 (bounds 10,1,1)
+                maxBound = 10;
+                minBound = 1;
+                adjustBound = 1;
+                break;
+            case 2: //If level 2 (bounds 20,1,1)
+                maxBound = 20;
+                minBound = 1;
+                adjustBound = 1;
+                break;
+            case 3: //If level 3 (bounds 25,10,5)
+                maxBound = 25;
+                minBound = 10;
+                adjustBound = 5;
+                break;
+            case 4: //If level 4 (bounds 30,10,5)
+                maxBound = 30;
+                minBound = 10;
+                adjustBound = 5;
+                break;
+            case 5: //If level 5 (bounds 50,10,1)
+                maxBound = 50;
+                minBound = 10;
+                adjustBound = 1;
+                break;
+            case 6: //If level 6 (bounds 75,10,5)
+                maxBound = 75;
+                minBound = 10;
+                adjustBound = 5;
+                break;
+            case 7: //If level 7 (bounds 100,10,10)
+                maxBound = 100;
+                minBound = 10;
+                adjustBound = 10;
+                break;
+
+            //If level 8 (bounds random integers?)
+        }
+
+        //Creates the random integers for math functions
+        int questionsToFillRecycler = 10;
+        for (int i = 0; i < questionsToFillRecycler; i++) {
+            Random r = new Random();
+            Random position = new Random();
             thisPosition = position.nextInt(4 - 1) + 1;
+            //Creates the array list for incorrect answers
+            ArrayList<Integer> multiOptions = new ArrayList<>();
+            firstDig = r.nextInt(maxBound - minBound) + adjustBound;
+            secondDig = r.nextInt(maxBound - minBound) + adjustBound;
+            correctAnswer = secondDig - firstDig;
+            //Defines incorrect random integers
+            while (multiOptions.size() < 4) {
+                int inCorrect = r.nextInt(maxBound - minBound) + adjustBound;
+                //Checks to verify that correct answer & current list of incorrects don't duplicate
+                if (!multiOptions.contains(inCorrect) && !multiOptions.contains(correctAnswer)) {
+                    multiOptions.add(inCorrect);
+                }
+            }
+            //Define integers for incorrect answers
+            incorrectOne = multiOptions.get(0); incorrectTwo = multiOptions.get(1); incorrectThree = multiOptions.get(2);
             //Convert integer to string values
             String firstNumber = String.valueOf(firstDig);
             String secondNumber = String.valueOf(secondDig);
             String firstIncorrect = String.valueOf(incorrectOne);
             String secondIncorrect = String.valueOf(incorrectTwo);
             String thirdIncorrect = String.valueOf(incorrectThree);
+            String correct = String.valueOf(correctAnswer);
             if (firstDig < secondDig) {
-                correctAnswer = secondDig - firstDig;
-                String correct = String.valueOf(correctAnswer);
                 //Checks if 1st integer is less than 2nd integer
                 switch (thisPosition) {
                     case 1: //A
@@ -100,8 +159,6 @@ public class FragmentLevelChallenge extends Fragment{
                         break;
                 }
             } else if (firstDig > secondDig) {
-                correctAnswer = firstDig + secondDig;
-                String correct = String.valueOf(correctAnswer);
                 //Checks if 1st integer is greater than 2nd integer
                 switch (thisPosition) {
                     case 1: //A
@@ -118,8 +175,6 @@ public class FragmentLevelChallenge extends Fragment{
                         break;
                 }
             } else {
-                correctAnswer = firstDig + secondDig;
-                String correct = String.valueOf(correctAnswer);
                 //Checks if 1st integer is greater than 2nd integer
                 switch (thisPosition) {
                     case 1: //A
@@ -136,10 +191,14 @@ public class FragmentLevelChallenge extends Fragment{
                         break;
                 }
             }
+            //Updates the RecyclerView Adapter
             adapterMulti.notifyDataSetChanged();
 
         }
     }
+
+
+
 
     private void initializeRecyclerAdapter() {
         adapterMulti = new RVAdapterMulti(QuestionsMulti);

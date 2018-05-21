@@ -5,16 +5,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.util.List;
 
+
 public class RVAdapterMulti extends RecyclerView.Adapter<RVAdapterMulti.MathMultiFunction> {
 
     private RadioButton lastCheckedRB = null;
+
 
     public static class MathMultiFunction extends RecyclerView.ViewHolder {
         CardView cvMulti;
@@ -26,6 +28,7 @@ public class RVAdapterMulti extends RecyclerView.Adapter<RVAdapterMulti.MathMult
         RadioButton radioBtwo;
         RadioButton radioBthree;
         RadioButton radioBfour;
+        int correctAnswer;
 
         MathMultiFunction(View itemView) {
             super(itemView);
@@ -33,6 +36,9 @@ public class RVAdapterMulti extends RecyclerView.Adapter<RVAdapterMulti.MathMult
             firstDigitView = itemView.findViewById(R.id.first_digit);
             mathFunctionView = itemView.findViewById(R.id.math_function);
             secondDigitView = itemView.findViewById(R.id.second_digit);
+
+
+
             multiRadioGroup = itemView.findViewById(R.id.radio_group_multi);
             radioBone = itemView.findViewById(R.id.radio_button_one);
             radioBtwo = itemView.findViewById(R.id.radio_button_two);
@@ -59,12 +65,25 @@ public class RVAdapterMulti extends RecyclerView.Adapter<RVAdapterMulti.MathMult
 
     @Override
     public void onBindViewHolder(MathMultiFunction mmf, int i) {
+        int correctAnswer;
         mmf.firstDigitView.setText(QuestionsMulti.get(i).firstNumber);
         mmf.secondDigitView.setText(QuestionsMulti.get(i).secondNumber);
         mmf.mathFunctionView.setText(QuestionsMulti.get(i).mathFunc);
-        mmf.multiRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
+        //checks for mathematical function (+ or -)
+        if (mmf.mathFunctionView.getText().equals("+")) {
+            correctAnswer = Integer.parseInt(String.valueOf(mmf.firstDigitView.getText()))+Integer.parseInt(String.valueOf(mmf.secondDigitView.getText()));
+        } else {
+            correctAnswer = Integer.parseInt(String.valueOf(mmf.secondDigitView.getText()))-Integer.parseInt(String.valueOf(mmf.firstDigitView.getText()));
+        }
+        //Converts answer to string value for comparison
+        final String correctAnswerString = String.valueOf(correctAnswer);
+        mmf.radioBone.setText(QuestionsMulti.get(i).correct);
+        mmf.radioBtwo.setText(QuestionsMulti.get(i).incorrectOne);
+        mmf.radioBthree.setText(QuestionsMulti.get(i).incorrectTwo);
+        mmf.radioBfour.setText(QuestionsMulti.get(i).incorrectThree);
+        //mmf.multiRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            //@Override
+            //public void onCheckedChanged(RadioGroup group, int checkedId) {
 
                 // Change logic here to validate correct answers.
                 // If checked ID.getText = correctAnswer
@@ -72,21 +91,20 @@ public class RVAdapterMulti extends RecyclerView.Adapter<RVAdapterMulti.MathMult
                 // If checked ID.getText = inCorrectAnswer
                 // Then chenge highlight color to red
                 // For all instances make remaining radiobuttons uncheckable.
+            //    RadioButton checked_rb = (RadioButton) group.findViewById(checkedId);
 
+            //    if (checked_rb.getText().equals(correctAnswerString)) {
+                    //Set the color to green
+            //      group.setClickable(false);
+            //    } else {
+                    //Set the color to red
+            //        group.setClickable(false);
 
-                RadioButton checked_rb = (RadioButton) group.findViewById(checkedId);
-                if (lastCheckedRB != null) {
-                    lastCheckedRB.setChecked(false);
-                }
-                //store the clicked radiobutton
-                lastCheckedRB = checked_rb;
+            //    }
 
-            }
-        });
-        mmf.radioBone.setText(QuestionsMulti.get(i).correct);
-        mmf.radioBtwo.setText(QuestionsMulti.get(i).incorrectOne);
-        mmf.radioBthree.setText(QuestionsMulti.get(i).incorrectTwo);
-        mmf.radioBfour.setText(QuestionsMulti.get(i).incorrectThree);
+        //    }
+        //});
+
     }
 
     @Override
