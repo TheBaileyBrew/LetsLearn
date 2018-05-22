@@ -63,11 +63,29 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="32dp"
                 android:text="="/>
+            <TextView
+                android:id="@+id/math_answer"
+                android:layout_toRightOf="@id/math_solution"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="32dp"
+                android:text=" ? "/>
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimaryDark"
+                android:layout_alignBottom="@id/math_answer"
+                android:layout_alignRight="@id/math_answer"
+                android:layout_alignLeft="@id/math_answer"/>
             <RadioGroup
                 android:id="@+id/radio_group_multi"
                 android:layout_width="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/math_solution"
+                android:layout_toRightOf="@id/math_answer"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <RadioButton

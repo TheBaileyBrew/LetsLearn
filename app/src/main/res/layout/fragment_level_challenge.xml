@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:textSize="56sp"
+        android:clickable="true"
         android:text="LEVELS"/>
     <ScrollView
         android:layout_width="match_parent"

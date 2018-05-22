@@ -4,11 +4,15 @@ public class multiquestion {
 
     String firstNumber;
     String secondNumber;
+    int correctSolution;
     String correct;
     String mathFunc;
     String incorrectOne;
     String incorrectTwo;
     String incorrectThree;
+    int checkedId = -1;
+    boolean isAnswered;
+    String selectedAnswer;
 
     public multiquestion(String firstNumber, String secondNumber, String correct, String mathFunc, String incorrectOne, String incorrectTwo, String incorrectThree) {
         this.firstNumber = firstNumber;
