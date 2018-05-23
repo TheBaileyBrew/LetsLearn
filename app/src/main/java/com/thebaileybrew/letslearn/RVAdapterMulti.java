@@ -1,64 +1,63 @@
 package com.thebaileybrew.letslearn;
 
-import android.content.Context;
-import android.content.Intent;
-import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
-import java.util.Random;
-import java.util.Set;
-
-import static java.security.AccessController.getContext;
 
 
 public class RVAdapterMulti extends RecyclerView.Adapter<RVAdapterMulti.ViewHolder> {
 
 
     private static String TAG = "RadioMultiAdapter";
-    private LayoutInflater inflater;
-    private List<multiquestion> QuestionsMulti;
-    private int questionsAnswered;
+    String blankAnswerField = " ? ";
+    private List<MultiQuestion> questionsMulti;
+    FragmentCommunication mCommunicator;
 
-    public RVAdapterMulti(List<multiquestion> QuestionMulti) {
-        this.QuestionsMulti = QuestionMulti;
+    private AdapterView.OnItemSelectedListener onSelect;
+
+    public RVAdapterMulti(List<MultiQuestion> QuestionMulti, FragmentCommunication communication) {
+        this.questionsMulti = QuestionMulti;
+        mCommunicator = communication;
     }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_item_multi, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, mCommunicator);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        multiquestion currentQuestion = QuestionsMulti.get(position);
+    public void onBindViewHolder(ViewHolder holder, final int position) {
+        MultiQuestion currentQuestion = questionsMulti.get(position);
         holder.setFirstDigit(currentQuestion.firstNumber);
         holder.setSecondDigit(currentQuestion.secondNumber);
         holder.setMathFunction(currentQuestion.mathFunc);
         holder.setOptions(currentQuestion, position);
+        holder.setMathAnswerView(currentQuestion.blankAnswer);
 
     }
 
 
     @Override
     public int getItemCount() {
-        if (QuestionsMulti == null) {
+        if (questionsMulti == null) {
             return 0;
         } else {
-            return QuestionsMulti.size();
+            return questionsMulti.size();
         }
     }
+
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -70,8 +69,9 @@ public class RVAdapterMulti extends RecyclerView.Adapter<RVAdapterMulti.ViewHold
         private RadioGroup radioGroupOptions;
         private RadioButton radioButtonOne, radioButtonTwo;
         private RadioButton radioButtonThree, radioButtonFour;
+        FragmentCommunication mCommunication;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(View itemView, FragmentCommunication Communicator) {
             super(itemView);
             firstDigitView = itemView.findViewById(R.id.first_digit);
             secondDigitView = itemView.findViewById(R.id.second_digit);
@@ -82,6 +82,7 @@ public class RVAdapterMulti extends RecyclerView.Adapter<RVAdapterMulti.ViewHold
             radioButtonTwo = itemView.findViewById(R.id.radio_button_two);
             radioButtonThree = itemView.findViewById(R.id.radio_button_three);
             radioButtonFour = itemView.findViewById(R.id.radio_button_four);
+            mCommunication = Communicator;
 
         }
 
@@ -97,8 +98,21 @@ public class RVAdapterMulti extends RecyclerView.Adapter<RVAdapterMulti.ViewHold
             mathFunctionView.setText(mathFunction);
         }
 
+        public void setMathAnswerView(String blankAnswer) {
+            mathAnswerView.setText(blankAnswer);
+            mathAnswerView.setTextColor(radioGroupOptions.getResources().getColor(R.color.colorPrimary));
+        }
 
-        public void setOptions(final multiquestion question, int position) {
+
+
+        public void setOptions(final MultiQuestion question, int position) {
+            Log.i(String.valueOf(mathAnswerView.getText()), "setOptions: ");
+            if (!(mathAnswerView.getText().equals(" ? "))) {
+                mathAnswerView.setText(" ? ");
+            } else {
+                mathAnswerView.setText(" ? ");
+            }
+
             radioGroupOptions.setTag(position);
             radioButtonOne.setText(question.correct);
             radioButtonTwo.setText(question.incorrectOne);
@@ -120,15 +134,9 @@ public class RVAdapterMulti extends RecyclerView.Adapter<RVAdapterMulti.ViewHold
                 @Override
                 public void onCheckedChanged(RadioGroup group, int checkedId) {
                     int pos = (int) group.getTag();
-                    multiquestion que = QuestionsMulti.get(pos);
+                    MultiQuestion que = questionsMulti.get(pos);
                     que.isAnswered = true;
                     que.checkedId = checkedId;
-                    radioGroupOptions.setClickable(false);
-                    radioButtonOne.setClickable(false);
-                    radioButtonTwo.setClickable(false);
-                    radioButtonThree.setClickable(false);
-                    radioButtonFour.setClickable(false);
-                    questionsAnswered = questionsAnswered + 1;
                     mathAnswerView.setText(String.valueOf(question.correctSolution));
                     String radioOneText = String.valueOf(radioButtonOne.getText());
                     String radioTwoText = String.valueOf(radioButtonTwo.getText());
@@ -139,29 +147,41 @@ public class RVAdapterMulti extends RecyclerView.Adapter<RVAdapterMulti.ViewHold
                         case R.id.radio_button_one:
                             if(radioOneText.equals(String.valueOf(question.correctSolution))) {
                                 mathAnswerView.setTextColor(group.getResources().getColor(R.color.colorCorrect));
+                                question.answeredCorrectly = true;
+                                mCommunication.respond(true);
                             } else {
                                 mathAnswerView.setTextColor(group.getResources().getColor(R.color.colorIncorrect));
+                                mCommunication.respond(false);
                             }
                             break;
                         case R.id.radio_button_two:
                             if(radioTwoText.equals(String.valueOf(question.correctSolution))) {
                                 mathAnswerView.setTextColor(group.getResources().getColor(R.color.colorCorrect));
+                                question.answeredCorrectly = true;
+                                mCommunication.respond(true);
                             } else {
                                 mathAnswerView.setTextColor(group.getResources().getColor(R.color.colorIncorrect));
+                                mCommunication.respond(false);
                             }
                             break;
                         case R.id.radio_button_three:
                             if(radioThreeText.equals(String.valueOf(question.correctSolution))) {
                                 mathAnswerView.setTextColor(group.getResources().getColor(R.color.colorCorrect));
+                                question.answeredCorrectly = true;
+                                mCommunication.respond(true);
                             } else {
                                 mathAnswerView.setTextColor(group.getResources().getColor(R.color.colorIncorrect));
+                                mCommunication.respond(false);
                             }
                             break;
                         case R.id.radio_button_four:
                             if(radioFourText.equals(String.valueOf(question.correctSolution))) {
                                 mathAnswerView.setTextColor(group.getResources().getColor(R.color.colorCorrect));
+                                question.answeredCorrectly = true;
+                                mCommunication.respond(true);
                             } else {
                                 mathAnswerView.setTextColor(group.getResources().getColor(R.color.colorIncorrect));
+                                mCommunication.respond(false);
                             }
                             break;
                     }

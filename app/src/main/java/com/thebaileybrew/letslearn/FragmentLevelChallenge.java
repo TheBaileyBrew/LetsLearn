@@ -1,23 +1,26 @@
 package com.thebaileybrew.letslearn;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.RadioButton;
+import android.widget.Button;
 import android.widget.RadioGroup;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.Vector;
 
 public class FragmentLevelChallenge extends Fragment{
@@ -26,7 +29,8 @@ public class FragmentLevelChallenge extends Fragment{
 
     RecyclerView recyclerView;
     RVAdapterMulti adapterMulti;
-    private List<multiquestion> QuestionsMulti;
+    private List<MultiQuestion> QuestionsMulti;
+    private List<Boolean> QuestionsAnswered;
 
     int firstDig;
     int secondDig;
@@ -35,8 +39,8 @@ public class FragmentLevelChallenge extends Fragment{
     int incorrectTwo;
     int incorrectThree;
     int thisPosition;
-
-    int selectedAnswers;
+    int questionsToFillRecycler = 10;
+    int countOfCorrect;
 
     //levelChallenge defines the current challenge level
     int levelChallenge;
@@ -56,41 +60,55 @@ public class FragmentLevelChallenge extends Fragment{
     public void onCreate (Bundle savedInstanceState) {super.onCreate(savedInstanceState);}
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_level_challenge, container, false);
 
         levelChallenge = 1;
-
+        radioGroupRecycler = view.findViewById(R.id.radio_group_multi);
+        QuestionsAnswered = new ArrayList<>();
         QuestionsMulti = new ArrayList<>();
         recyclerView = view.findViewById(R.id.recycler_view_display_multi);
-        radioGroupRecycler = view.findViewById(R.id.radio_group_multi);
-        recyclerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int questions = adapterMulti.getItemCount();
-
-            }
-        });
         LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
+        adapterMulti = new RVAdapterMulti(QuestionsMulti, communication);
+        recyclerView.getRecycledViewPool().setMaxRecycledViews(0,10);
+        recyclerView.setAdapter(adapterMulti);
         recyclerView.setLayoutManager(layoutManager);
-        TextView levelsText = view.findViewById(R.id.level_challenge);
-        levelsText.setOnClickListener(new View.OnClickListener() {
+        Button levelsSubmit = view.findViewById(R.id.submit_answer_button_levels);
+        levelsSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                countOfCorrect = Collections.frequency(QuestionsAnswered,true);
+                Log.i(String.valueOf(countOfCorrect), "onClick: ");
+                if (countOfCorrect == questionsToFillRecycler) {
+                    Toast.makeText(v.getContext(),"Congratulations! You answered them all correct. Lets try harder ones!", Toast.LENGTH_LONG).show();
+                    levelChallenge = levelChallenge + 1;
+                    createQuestionBatch();
+                } else if (countOfCorrect >= 3 && countOfCorrect <= (questionsToFillRecycler - 3)) {
+                    Toast.makeText(v.getContext(), "You're almost there. Try again!", Toast.LENGTH_LONG).show();
+                    createQuestionBatch();
+                } else {
+                    Toast.makeText(v.getContext(), "Let's try that again. You got " + String.valueOf(countOfCorrect) + " correct.", Toast.LENGTH_LONG).show();
+                    createQuestionBatch();
+                }
             }
         });
-        initializeRecyclerAdapter();
+
         createQuestionBatch();
         return view;
     }
 
-    private void createQuestionBatch() {
-        //Integer values to define the minimum, maximum and adjustment for random integers
-        if (selectedAnswers == 5) {
-            levelChallenge++;
+    FragmentCommunication communication = new FragmentCommunication() {
+        @Override
+        public void respond(boolean answeredCorrectly) {
+            QuestionsAnswered.add(answeredCorrectly);
         }
+    };
 
+    private void createQuestionBatch() {
+        //Resets the value for count of correct
+        QuestionsAnswered.clear();
+        countOfCorrect = 0;
+        QuestionsMulti.clear();
         //Checks the current level to determine the boundaries for difficulty of random integers
         switch (levelChallenge) {
             case 1: //If level 1 (bounds 10,1,1)
@@ -132,7 +150,6 @@ public class FragmentLevelChallenge extends Fragment{
         }
 
         //Creates the random integers for math functions
-        int questionsToFillRecycler = 5;
         for (int i = 0; i < questionsToFillRecycler; i++) {
             final Random r = new Random();
             Random position = new Random();
@@ -142,20 +159,16 @@ public class FragmentLevelChallenge extends Fragment{
             secondDig = r.nextInt(maxBound - minBound) + adjustBound;
             if (firstDig < secondDig) {
                 correctAnswer = secondDig - firstDig;
+                incorrectOne = secondDig - firstDig - 1;
+                incorrectTwo = secondDig - firstDig + 2;
+                incorrectThree = (secondDig + firstDig) - 2;
             } else {
                 correctAnswer = firstDig + secondDig;
+                incorrectOne = secondDig + firstDig - 2;
+                incorrectTwo = secondDig + firstDig + 1;
+                incorrectThree = (firstDig - secondDig) + 3;
             }
-            //Defines incorrect random integers
-            ArrayList<Integer> multiOptions = new ArrayList<>();
-            while (multiOptions.size() < 3) {
-                int inCorrect = r.nextInt(maxBound - minBound) + 1;
-                if (!multiOptions.contains(correctAnswer)) {
-                    multiOptions.add(inCorrect);
-                }
-            }
-            incorrectOne = r.nextInt(maxBound - minBound) + 3;
-            incorrectTwo = multiOptions.get(1);
-            incorrectThree = multiOptions.get(2);
+
             //Convert integer to string values
             String firstNumber = String.valueOf(firstDig);
             String secondNumber = String.valueOf(secondDig);
@@ -164,30 +177,26 @@ public class FragmentLevelChallenge extends Fragment{
             String thirdIncorrect = String.valueOf(incorrectThree);
             String correct = String.valueOf(correctAnswer);
             List<String> answers = new Vector<>();
-            answers.add(firstIncorrect);
             answers.add(correct);
+            answers.add(firstIncorrect);
             answers.add(secondIncorrect);
             answers.add(thirdIncorrect);
             Collections.shuffle(answers);
             if (firstDig < secondDig) {
                 //Checks if 1st integer is less than 2nd integer
-                QuestionsMulti.add(new multiquestion(secondNumber, firstNumber, answers.get(0), "-", answers.get(1), answers.get(2), answers.get(3)));
+                QuestionsMulti.add(new MultiQuestion(secondNumber, firstNumber, answers.get(0), "-", answers.get(1), answers.get(2), answers.get(3)));
             } else if (firstDig > secondDig) {
                 //Checks if 1st integer is greater than 2nd integer
-                QuestionsMulti.add(new multiquestion(secondNumber, firstNumber, answers.get(0), "+", answers.get(1), answers.get(2), answers.get(3)));
+                QuestionsMulti.add(new MultiQuestion(secondNumber, firstNumber, answers.get(0), "+", answers.get(1), answers.get(2), answers.get(3)));
             } else {
                 //Checks if 1st integer is greater than 2nd integer
-                QuestionsMulti.add(new multiquestion(secondNumber, firstNumber, answers.get(0), "+", answers.get(1), answers.get(2), answers.get(3)));
+                QuestionsMulti.add(new MultiQuestion(secondNumber, firstNumber, answers.get(0), "+", answers.get(1), answers.get(2), answers.get(3)));
             }
             //Updates the RecyclerView Adapter
             adapterMulti.notifyDataSetChanged();
         }
     }
 
-    private void initializeRecyclerAdapter() {
-        adapterMulti = new RVAdapterMulti(QuestionsMulti);
-        recyclerView.setAdapter(adapterMulti);
-    }
 
 
 }

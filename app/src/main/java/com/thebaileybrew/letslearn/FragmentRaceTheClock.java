@@ -38,6 +38,7 @@ public class FragmentRaceTheClock extends Fragment {
     public String time;
     boolean startClock = false; // FALSE = NOT STARTED // TRUE = STARTED
     boolean countdownRunning = false;
+    Button startGame;
     Button submitAnswer;
     Button startAgain;
 
@@ -72,25 +73,33 @@ public class FragmentRaceTheClock extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         //Countdown Clock initialization
         correctAnswers = view.findViewById(R.id.correct_total);
+        startGame = view.findViewById(R.id.start_button_race);
         submitAnswer = view.findViewById(R.id.submit_answer_button_race);
         startAgain = view.findViewById(R.id.start_new_race);
         cardViewLayout = recyclerView.findViewById(R.id.card_border_changable);
 
         initializeRecyclerAdapter();
+        //Starts the countdown and displays the recyclerView
+        startGame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (countdownRunning) {
+                    //Do nothing
+                } else {
+                    startCountdown();
+                    createQuestions();
+                }
+            }
+        });
 
-        createQuestions();
+        //Submits the answer and moves to the next question
         submitAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!countdownRunning) {
-                    startCountdown();
-                }
                 replaceQuestions();
 
             }
         });
-        //Define findViewByIds and button listeners
-        //public void onClickListener should be defined here as well.
         return view;
     }
 
@@ -103,14 +112,18 @@ public class FragmentRaceTheClock extends Fragment {
                 time = String.format(Locale.US,"%01d:%02d",minutes, seconds);
                 Log.i(time, "onTick: Current value of time");
                 counter = String.valueOf(time);
+                submitAnswer.setClickable(true);
                 countdownDisplay.setText(counter);
                 countdownRunning = true;
+
             }
 
             @Override
             public void onFinish() {
                 countdownDisplay.setText("Time's up!");
                 countdownRunning = false;
+                submitAnswer.setClickable(false);
+                Questions.clear();
                 finishCountdown();
             }
         };
@@ -119,7 +132,7 @@ public class FragmentRaceTheClock extends Fragment {
     }
 
     private void finishCountdown() {
-        submitAnswer.setVisibility(GONE);
+        startGame.setVisibility(GONE);
         correctAnswers.setText((String.valueOf(numCorrect) + " / " + (String.valueOf(numCorrect + numIncorrect))));
         startAgain.setVisibility(View.VISIBLE);
         startAgain.setOnClickListener(new View.OnClickListener() {
@@ -164,10 +177,12 @@ public class FragmentRaceTheClock extends Fragment {
             cardViewLayout = recyclerView.findViewById(R.id.card_border_changable);
             cardViewLayout.setBackgroundResource(R.drawable.card_background_color_correct);
             numCorrect = numCorrect + 1;
+            Toast.makeText(getContext(),"That's Correct! The answer was " + answerString, Toast.LENGTH_SHORT).show();
         } else {
             //Submitted answer is incorrect
             cardViewLayout = recyclerView.findViewById(R.id.card_border_changable);
             cardViewLayout.setBackgroundResource(R.drawable.card_background_color_incorrect);
+            Toast.makeText(getContext(),"Almost got it. The Correct answer was " + answerString, Toast.LENGTH_SHORT).show();
             numIncorrect = numIncorrect + 1;
         }
 

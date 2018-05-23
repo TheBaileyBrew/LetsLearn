@@ -1,6 +1,6 @@
 package com.thebaileybrew.letslearn;
 
-public class multiquestion {
+public class MultiQuestion {
 
     String firstNumber;
     String secondNumber;
@@ -12,9 +12,10 @@ public class multiquestion {
     String incorrectThree;
     int checkedId = -1;
     boolean isAnswered;
-    String selectedAnswer;
+    boolean answeredCorrectly = false;
+    String blankAnswer = " ? ";
 
-    public multiquestion(String firstNumber, String secondNumber, String correct, String mathFunc, String incorrectOne, String incorrectTwo, String incorrectThree) {
+    public MultiQuestion(String firstNumber, String secondNumber, String correct, String mathFunc, String incorrectOne, String incorrectTwo, String incorrectThree) {
         this.firstNumber = firstNumber;
         this.secondNumber = secondNumber;
         this.correct = correct;
@@ -22,5 +23,6 @@ public class multiquestion {
         this.incorrectOne = incorrectOne;
         this.incorrectTwo = incorrectTwo;
         this.incorrectThree = incorrectThree;
+
     }
 }
