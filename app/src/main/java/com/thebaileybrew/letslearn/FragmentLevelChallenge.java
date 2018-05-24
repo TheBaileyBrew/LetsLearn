@@ -105,9 +105,11 @@ public class FragmentLevelChallenge extends Fragment{
     };
 
     private void createQuestionBatch() {
-        //Resets the value for count of correct
+        //Removes current data in correct answers ArrayList
         QuestionsAnswered.clear();
+        //Resets the value for count integer
         countOfCorrect = 0;
+        //Removes current data from questions ArrayList
         QuestionsMulti.clear();
         //Checks the current level to determine the boundaries for difficulty of random integers
         switch (levelChallenge) {
@@ -116,37 +118,41 @@ public class FragmentLevelChallenge extends Fragment{
                 minBound = 1;
                 adjustBound = 1;
                 break;
-            case 2: //If level 2 (bounds 20,1,4)
+            case 2: //If level 2 (bounds 20,10,1)
                 maxBound = 20;
-                minBound = 1;
-                adjustBound = 4;
+                minBound = 10;
+                adjustBound = 1;
                 break;
-            case 3: //If level 3 (bounds 25,10,5)
-                maxBound = 25;
+            case 3: //If level 3 (bounds 30,10,5)
+                maxBound = 30;
                 minBound = 10;
                 adjustBound = 5;
                 break;
-            case 4: //If level 4 (bounds 30,10,7)
-                maxBound = 30;
-                minBound = 10;
-                adjustBound = 7;
+            case 4: //If level 4 (bounds 40,20,5)
+                maxBound = 40;
+                minBound = 20;
+                adjustBound = 5;
                 break;
-            case 5: //If level 5 (bounds 50,10,9)
+            case 5: //If level 5 (bounds 50,25,10)
                 maxBound = 50;
-                minBound = 10;
-                adjustBound = 9;
+                minBound = 25;
+                adjustBound = 5;
                 break;
-            case 6: //If level 6 (bounds 75,10,15)
+            case 6: //If level 6 (bounds 75,25,10)
                 maxBound = 75;
-                minBound = 10;
-                adjustBound = 15;
+                minBound = 25;
+                adjustBound = 10;
                 break;
-            case 7: //If level 7 (bounds 100,10,18)
+            case 7: //If level 7 (bounds 100,50,10)
                 maxBound = 100;
-                minBound = 10;
-                adjustBound = 18;
+                minBound = 50;
+                adjustBound = 10;
                 break;
-            //If level 8 (bounds random integers?)
+            default: //If level 8 or higher (bounds increase by 25, adjust increases by 10)
+                maxBound = maxBound + 25;
+                minBound = minBound + 25;
+                adjustBound = adjustBound + 10;
+                break;
         }
 
         //Creates the random integers for math functions

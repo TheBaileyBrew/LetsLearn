@@ -3,9 +3,45 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/pattern_challenge"
+        android:layout_marginTop="32dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="PATTERNS"/>
+        android:layout_centerHorizontal="true"
+        android:visibility="visible"
+        android:textSize="56sp"
+        android:clickable="true"
+        android:text="LEVELS"/>
+    <Button
+        android:id="@+id/submit_answer_button_pattern"
+        style="@style/Base.Widget.AppCompat.Button.Borderless"
+        android:layout_below="@id/pattern_challenge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="37sp"
+        android:text="SUBMIT ANSWERS"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_display"
+        android:layout_below="@id/submit_answer_button_pattern"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/start_button_race"
+        style="@style/Base.Widget.AppCompat.Button.Borderless"
+        android:layout_below="@id/submit_answer_button_pattern"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:textSize="22sp"
+        android:textColor="@color/colorPrimary"
+        android:text="START GAME"/>
 
 </RelativeLayout>
