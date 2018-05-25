@@ -63,9 +63,6 @@ public class FragmentRaceTheClock extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_race_the_clock, container, false);
-
-        //TODO: Add Layout Views
-        //TODO: Add Countdown Timer
         Questions = new ArrayList<>();
         recyclerView = view.findViewById(R.id.recycler_view_display);
         LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());

@@ -11,7 +11,7 @@
         android:visibility="visible"
         android:textSize="56sp"
         android:clickable="true"
-        android:text="LEVELS"/>
+        android:text="PATTERNS"/>
     <Button
         android:id="@+id/submit_answer_button_pattern"
         style="@style/Base.Widget.AppCompat.Button.Borderless"
@@ -31,17 +31,86 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <Button
-        android:id="@+id/start_button_race"
-        style="@style/Base.Widget.AppCompat.Button.Borderless"
+    <TextView
+        android:id="@+id/correct_header_pattern"
         android:layout_below="@id/submit_answer_button_pattern"
-        android:layout_width="match_parent"
+        android:layout_marginTop="200dp"
+        android:layout_alignLeft="@id/recycler_view_display"
+        android:layout_marginLeft="28dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         android:textSize="22sp"
-        android:textColor="@color/colorPrimary"
-        android:text="START GAME"/>
+        android:text="CORRECT ANSWERS"/>
+    <TextView
+        android:id="@+id/correct_total_pattern"
+        android:layout_toRightOf="@id/correct_header_pattern"
+        android:layout_alignTop="@id/correct_header_pattern"
+        android:layout_alignBottom="@id/correct_header_pattern"
+        android:layout_marginLeft="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="28sp"
+        android:text="0"/>
+    <TextView
+        android:id="@+id/total_pattern_divider"
+        android:layout_toRightOf="@id/correct_total_pattern"
+        android:layout_alignTop="@id/correct_header_pattern"
+        android:layout_alignBottom="@id/correct_header_pattern"
+        android:layout_marginLeft="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="28sp"
+        android:text="/"/>
+    <TextView
+        android:id="@+id/total_pattern"
+        android:layout_toRightOf="@id/total_pattern_divider"
+        android:layout_alignTop="@id/correct_header_pattern"
+        android:layout_alignBottom="@id/correct_header_pattern"
+        android:layout_marginLeft="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="28sp"
+        android:text="0"/>
+
+    <TextView
+        android:id="@+id/correct_header_patternID"
+        android:layout_below="@id/correct_header_pattern"
+        android:layout_marginTop="8dp"
+        android:layout_alignLeft="@id/recycler_view_display"
+        android:layout_marginLeft="22dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="28sp"
+        android:text="CORRECT PATTERNS"/>
+    <TextView
+        android:id="@+id/correct_total_patternID"
+        android:layout_toRightOf="@id/correct_header_patternID"
+        android:layout_alignTop="@id/correct_header_patternID"
+        android:layout_alignBottom="@id/correct_header_patternID"
+        android:layout_marginLeft="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="28sp"
+        android:text="0"/>
+    <TextView
+        android:id="@+id/total_pattern_dividerID"
+        android:layout_toRightOf="@id/correct_total_patternID"
+        android:layout_alignTop="@id/correct_header_patternID"
+        android:layout_alignBottom="@id/correct_header_patternID"
+        android:layout_marginLeft="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="28sp"
+        android:text="/"/>
+    <TextView
+        android:id="@+id/total_patternID"
+        android:layout_toRightOf="@id/total_pattern_dividerID"
+        android:layout_alignTop="@id/correct_header_patternID"
+        android:layout_alignBottom="@id/correct_header_patternID"
+        android:layout_marginLeft="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="28sp"
+        android:text="0"/>
 
 </RelativeLayout>
