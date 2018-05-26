@@ -81,7 +81,9 @@ public class FragmentPatterns extends Fragment {
         recyclerView.setAdapter(adapterPatterns);
         recyclerView.setLayoutManager(layoutManager);
         correctAnswerCount = view.findViewById(R.id.correct_total_pattern);
+        totalAnswerCount = view.findViewById(R.id.total_pattern);
         correctPatternCount = view.findViewById(R.id.correct_total_patternID);
+        totalPatternCount = view.findViewById(R.id.total_patternID);
 
         Button patternsSubmit = view.findViewById(R.id.submit_answer_button_pattern);
         patternsSubmit.setOnClickListener(new View.OnClickListener() {
@@ -91,12 +93,18 @@ public class FragmentPatterns extends Fragment {
                 if (answeredCorrectly) {
                     Toast.makeText(v.getContext(), "That's correct. The next in the pattern is " + String.valueOf(correctAnswer), Toast.LENGTH_LONG).show();
                     correctAnswerCount.setText(String.valueOf(countOfCorrectAnswers));
+                    totalAnswerCount.setText(String.valueOf(countOfCorrectAnswers + countOfIncorrectAnswers));
                 } else {
                     Toast.makeText(v.getContext(), "Almost, the next in the pattern was " + String.valueOf(correctAnswer), Toast.LENGTH_LONG).show();
                     correctAnswerCount.setText(String.valueOf(countOfCorrectAnswers));
+                    totalAnswerCount.setText(String.valueOf(countOfCorrectAnswers + countOfIncorrectAnswers));
                 }
                 if (patternCorrect) {
                     correctPatternCount.setText(String.valueOf(countOfCorrectPattern));
+                    totalPatternCount.setText(String.valueOf(countOfCorrectPattern + countOfIncorrectPattern));
+                } else {
+                    correctPatternCount.setText(String.valueOf(countOfCorrectPattern));
+                    totalPatternCount.setText(String.valueOf(countOfCorrectPattern + countOfIncorrectPattern));
                 }
 
                 createQuestionPattern();
