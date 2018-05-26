@@ -5,4 +5,15 @@
     <string name="title_menu3">Home</string>
     <string name="title_menu4">Patterns</string>
     <string name="title_menu5">Scores</string>
+    <string name="string_increase">INCREASE</string>
+    <string name="string_decrease">DECREASE</string>
+    <string name="string_looping">LOOP</string>
+    <string name="string_correct_patterns">CORRECT PATTERNS</string>
+    <string name="string_correct_answers">CORRECT ANSWERS</string>
+    <string name="string_submit_answers">SUBMIT ANSWERS</string>
+    <string name="string_play_again">PLAY AGAIN</string>
+    <string name="string_start_game">START GAME</string>
+    <string name="string_race_caps_header">RACE</string>
+    <string name="string_levels_caps">LEVELS</string>
+    <string name="string_patterns_caps">PATTERNS</string>
 </resources>

@@ -4,14 +4,14 @@
 
     <TextView
         android:id="@+id/level_challenge"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:visibility="visible"
-        android:textSize="56sp"
+        android:textSize="50sp"
         android:clickable="true"
-        android:text="LEVELS"/>
+        android:text="@string/string_levels_caps"/>
     <Button
         android:id="@+id/submit_answer_button_levels"
         style="@style/Base.Widget.AppCompat.Button.Borderless"
@@ -20,8 +20,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="37sp"
-        android:text="SUBMIT ANSWERS"/>
+        android:textSize="32sp"
+        android:text="@string/string_submit_answers"/>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -4,14 +4,13 @@
 
     <TextView
         android:id="@+id/pattern_challenge"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:visibility="visible"
-        android:textSize="56sp"
-        android:clickable="true"
-        android:text="PATTERNS"/>
+        android:textSize="50sp"
+        android:text="@string/string_patterns_caps"/>
     <Button
         android:id="@+id/submit_answer_button_pattern"
         style="@style/Base.Widget.AppCompat.Button.Borderless"
@@ -20,8 +19,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="37sp"
-        android:text="SUBMIT ANSWERS"/>
+        android:textSize="32sp"
+        android:text="@string/string_submit_answers"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_display"
@@ -39,8 +38,8 @@
         android:layout_marginLeft="28dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="22sp"
-        android:text="CORRECT ANSWERS"/>
+        android:textSize="@dimen/pattern_text_28sp"
+        android:text="@string/string_correct_answers"/>
     <TextView
         android:id="@+id/correct_total_pattern"
         android:layout_toRightOf="@id/correct_header_pattern"
@@ -49,7 +48,7 @@
         android:layout_marginLeft="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="28sp"
+        android:textSize="@dimen/pattern_text_28sp"
         android:text="0"/>
     <TextView
         android:id="@+id/total_pattern_divider"
@@ -59,7 +58,7 @@
         android:layout_marginLeft="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="28sp"
+        android:textSize="@dimen/pattern_text_28sp"
         android:text="/"/>
     <TextView
         android:id="@+id/total_pattern"
@@ -69,7 +68,7 @@
         android:layout_marginLeft="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="28sp"
+        android:textSize="@dimen/pattern_text_28sp"
         android:text="0"/>
 
     <TextView
@@ -80,8 +79,8 @@
         android:layout_marginLeft="22dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="28sp"
-        android:text="CORRECT PATTERNS"/>
+        android:textSize="@dimen/pattern_text_28sp"
+        android:text="@string/string_correct_patterns"/>
     <TextView
         android:id="@+id/correct_total_patternID"
         android:layout_toRightOf="@id/correct_header_patternID"
@@ -90,7 +89,7 @@
         android:layout_marginLeft="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="28sp"
+        android:textSize="@dimen/pattern_text_28sp"
         android:text="0"/>
     <TextView
         android:id="@+id/total_pattern_dividerID"
@@ -100,7 +99,7 @@
         android:layout_marginLeft="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="28sp"
+        android:textSize="@dimen/pattern_text_28sp"
         android:text="/"/>
     <TextView
         android:id="@+id/total_patternID"
@@ -110,7 +109,7 @@
         android:layout_marginLeft="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="28sp"
+        android:textSize="@dimen/pattern_text_28sp"
         android:text="0"/>
 
 </RelativeLayout>

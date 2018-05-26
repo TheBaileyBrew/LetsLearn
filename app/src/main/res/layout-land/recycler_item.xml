@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardview"
+        style="@style/CardView.Light"
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:layout_margin="8dp"
+
+        app:cardCornerRadius="8dp"
+        app:cardElevation="6dp">
+        <RelativeLayout
+            android:id="@+id/card_border_changable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/card_background_color">
+            <TextView
+                android:id="@+id/first_digit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:textSize="48sp"
+                android:text=" ? "/>
+            <TextView
+                android:id="@+id/math_function"
+                android:layout_toRightOf="@id/first_digit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="44sp"
+                android:text="+"/>
+            <TextView
+                android:id="@+id/second_digit"
+                android:layout_toRightOf="@id/math_function"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="48sp"
+                android:text=" ? "/>
+            <TextView
+                android:id="@+id/math_solution"
+                android:layout_toRightOf="@id/second_digit"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="44sp"
+                android:text="="/>
+            <EditText
+                android:id="@+id/answer_text_entry"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@id/math_solution"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginRight="8dp"
+                android:textColorHint="@color/colorPrimaryDark"
+                android:inputType="number"
+                android:hint=" ? "
+                android:textSize="48sp"/>
+
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</FrameLayout>

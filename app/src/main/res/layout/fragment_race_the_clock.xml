@@ -4,12 +4,12 @@
 
     <TextView
         android:id="@+id/stopwatch_display"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:textSize="56sp"
-        android:text="RACE"/>
+        android:textSize="50sp"
+        android:text="@string/string_race_caps_header"/>
     <Button
         android:id="@+id/submit_answer_button_race"
         style="@style/Base.Widget.AppCompat.Button.Borderless"
@@ -18,8 +18,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="37sp"
-        android:text="SUBMIT ANSWERS"/>
+        android:textSize="32sp"
+        android:text="@string/string_submit_answers"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_display"
@@ -35,12 +35,12 @@
         android:layout_below="@id/submit_answer_button_race"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="125dp"
+        android:layout_marginTop="100dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:textSize="22sp"
         android:textColor="@color/colorPrimary"
-        android:text="START GAME"/>
+        android:text="@string/string_start_game"/>
 
     <Button
         android:id="@+id/start_new_race"
@@ -48,22 +48,22 @@
         android:layout_below="@id/submit_answer_button_race"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="125dp"
+        android:layout_marginTop="100dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:textSize="22sp"
         android:textColor="@color/colorPrimary"
         android:visibility="gone"
-        android:text="PLAY AGAIN"/>
+        android:text="@string/string_play_again"/>
 
     <TextView
         android:id="@+id/correct_header"
         android:layout_below="@id/submit_answer_button_race"
-        android:layout_marginTop="170dp"
+        android:layout_marginTop="150dp"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CORRECT ANSWERS"/>
+        android:text="@string/string_correct_answers"/>
     <TextView
         android:id="@+id/correct_total"
         android:layout_below="@id/correct_header"
